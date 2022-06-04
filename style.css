@@ -1,0 +1,71 @@
+.headerrow {
+	border-bottom:1px solid black;
+	border-left:1px solid black;
+	border-right:1px solid black;
+	width:40px;
+	font-weight:bold;
+	text-align:center;
+	vertical-align:center;
+	font-size:8pt;
+	height:40px;
+}
+
+.contestantname {
+	font-size:10pt;
+	font-family:sans-serif;
+	font-weight:bold;
+}
+
+.contestanttitle {
+	font-size:8pt;
+	font-family:sans-serif;
+	font-style:italic;
+}
+
+.contestantemoji {
+	font-size:18pt;
+}
+
+td {
+	text-align:center;
+	border:1px solid black;
+	padding:4px;
+}
+
+.outcomebox {
+	text-align:left;
+	font-size:10pt;
+}
+
+.passrow {
+	background-color:#8b008b;
+}
+
+.blackstar {
+   color:#000000;
+   -webkit-filter:contrast(0%);
+   filter:contrast(0%);
+}
+
+.challengebox {
+   border:1px solid black;
+   background-color:beige;
+   margin:10px;
+   padding:5px;
+}
+
+h1 {
+	margin:0px;
+}
+
+h2 {
+	margin:0px;
+}
+
+h3 {
+	margin:0px;
+}
+
+table {
+	margin:0px;
+}
