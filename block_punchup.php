@@ -19,8 +19,8 @@
 	if ($topcontestants == 1) {
 		$blockedcontestant = $blockable[0]["blockableid"];
 	} else {
-		$blockedpull = rand(1,$topcontestants)-1;
-		$blockedcontestant = $blockable[$blockedpull]["blockableid"];
+		include "block_random.php";
+		$strategyverb = "can't punch up, so chooses at random instead";
 	}
 	
 	
