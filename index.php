@@ -5,7 +5,7 @@
     <title>Drag Race All Stars Simulator</title>
   </head>
   <body>
-	<h1>May The Best Drag Queen, Win!</h1>
+	<h1>Racers, Start Your Engines!</h1>
 
 	<?php
 		// Connect to the database
