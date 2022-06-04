@@ -5,7 +5,7 @@
     <title>Drag Race All Stars Simulator</title>
   </head>
   <body>
-	<h1>Racers, Start Your Engines!</h1>
+	<h1>The /u/nefariousplotz Dark Res Simulator</h1>
 
 	<?php
 		// Connect to the database
