@@ -17,7 +17,7 @@
 		//
 		
 		// How many seasons are we running?
-		$cycles = 100000;
+		$cycles = 5;
 
 		// Are we recording our results in the database?
 		$record = 1;
@@ -26,16 +26,16 @@
 		// 0 for no scoreboard
 		// 1 for a scoreboard for just the first season (to confirm it's working properly)
 		// 2 for a scoreboard for every season
-		$showscoreboard = 1;
+		$showscoreboard = 2;
 		
 		// Do you want a narrative?
 		// 0 for no narrative
 		// 1 for a limited narrative (setup, challenge winners, results only)
 		// 2 for a full narrative (every roll)
-		$shownarrative = 0;
+		$shownarrative = 2;
 		
 		// Are we doing alliances?
-		$alliances = 0;
+		$alliances = 1;
 		
 		// How many challenges per season?
 		$maxchallenge = 12;
@@ -50,7 +50,7 @@
 		// 5 to force everyone to crack up
 		// 100 to have one contestant select a "smart" strategy at random (2, 3, 4, 5)
 		//				and everyone else select a "dumb" strategy at random (0, 1)
-		$assignstrategy = 100;
+		$assignstrategy = -1;
 		
 		//
 		//
