@@ -7,7 +7,7 @@
   <body>
 	<?php
 		// Connect to the database
-		$mysqli = new mysqli("localhost", "dragbot", "dragbot", "rapaldarkres");
+		$mysqli = new mysqli("[host]", "[username]", "[password]", "[database]");
 		
 		
 		// Configure this session
