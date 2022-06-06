@@ -9,4 +9,5 @@
 		$strategyarray[4] = array("file"=>"block_crackdown.php", "name"=>"Crack Down", "verb"=>"cracks down");
 		$strategyarray[5] = array("file"=>"block_crackup.php", "name"=>"Crack Up", "verb"=>"cracks up");
 		
+		
 		?>

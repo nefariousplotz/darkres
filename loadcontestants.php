@@ -30,10 +30,10 @@
 				if ($shownarrative > 0) echo "<li>[🔮]". $row['emoji'] ."<strong>". $row['name'] ."</strong> has chosen her strategy: ". $strategyarray[$row['strategy']]["name"] .".</li>";
 			} else if ($assignstrategy == 100) {
 				if ($smartcontestant == $row['id']) {
-					$row['strategy'] = rand(2,5);
+					$row['strategy'] = rand(3,5);
 				if ($shownarrative > 0) 	echo "<li>[🔮]". $row['emoji'] ."<strong>". $row['name'] ."</strong> is the 🎓smart contestant, and chooses her strategy: ". $strategyarray[$row['strategy']]["name"] .".</li>";
 				} else {
-					$row['strategy'] = rand(0,1);
+					$row['strategy'] = rand(0,2);
 				if ($shownarrative > 0) 	echo "<li>[🔮]". $row['emoji'] ."<strong>". $row['name'] ."</strong> chooses a basic strategy: ". $strategyarray[$row['strategy']]["name"] .".</li>";
 				}
 					

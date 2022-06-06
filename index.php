@@ -2,14 +2,12 @@
   <head>
     <link rel="stylesheet" href="style.css">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title>Drag Race All Stars Simulator</title>
+    <title>RaPal Dark Res Ill Stairs: Plunger Simulator 5000</title>
   </head>
   <body>
-	<h1>The /u/nefariousplotz Dark Res Simulator</h1>
-
 	<?php
 		// Connect to the database
-		$mysqli = new mysqli("[host]", "[username]", "[password]", "[database]");
+		$mysqli = new mysqli("localhost", "dragbot", "dragbot", "rapaldarkres");
 		
 		
 		// Configure this session
@@ -17,10 +15,13 @@
 		//
 		
 		// How many seasons are we running?
-		$cycles = 5;
+		$cycles = 10;
 
 		// Are we recording our results in the database?
-		$record = 1;
+		$record = 0;
+		
+		// Do we want to purge the database before we begin?
+		$purgedb = 0;
 		
 		// Do you want to see a scoreboard?
 		// 0 for no scoreboard
@@ -32,7 +33,7 @@
 		// 0 for no narrative
 		// 1 for a limited narrative (setup, challenge winners, results only)
 		// 2 for a full narrative (every roll)
-		$shownarrative = 2;
+		$shownarrative = 1;
 		
 		// Are we doing alliances?
 		$alliances = 1;
@@ -44,10 +45,11 @@
 		// -1 to assign each contestant a strategy at random
 		// 0 to force everyone to use random selection
 		// 1 to force everyone to punch up
-		// 2 to force everyone to punch down
+		// 2 to force everyone to block the frontrunner
 		// 3 to force everyone to crack the code
 		// 4 to force everyone to crack down
 		// 5 to force everyone to crack up
+		// 6 to force everyone to punch down
 		// 100 to have one contestant select a "smart" strategy at random (2, 3, 4, 5)
 		//				and everyone else select a "dumb" strategy at random (0, 1)
 		$assignstrategy = -1;
@@ -58,8 +60,8 @@
 		// 
 		// All right... let's go!
 		
-		if ($record == 1) {
-			// We're recording into the database, so we're going to flush the DB to receive the new records.
+		if ($purgedb == 1) {
+			// Flush the DB to receive new records.
 			mysqli_query($mysqli, "delete from results");
 		}
 		
@@ -197,7 +199,7 @@
 			
 			// Are we posting a scoreboard?
 			
-			if ($showscoreboard == 2 OR ($showscoreboard == 1 && $currentcycle == 1)) {
+			if ($showscoreboard == 2 OR ($showscoreboard == 1 && $currentcycle == 0)) {
 				// If we are showing a scoreboard, pre- sort the contestant array by placement.
 				
 				$columns = array_column($contestantarray,'placement');
@@ -223,21 +225,22 @@
 					$placement = $contestant["placement"];
 					$strategy = $contestant["strategy"];
 					$blockslanded = $contestant["blockslanded"];
+					$cash = $contestant["cash"];
 					if ($alliances == 1) {
 						$alliance = $contestant["alliance"];
 					} else {
 						$alliance = 0;
 					}
-					$values = $values ."(". $round .", ". $contestantid .", ". $wincount .", ". $starcount .", ". $placement .", ". $strategy .", ". $blockslanded .", ". $alliance ."), ";
+					$values = $values ."(". $round .", ". $contestantid .", ". $wincount .", ". $starcount .", ". $placement .", ". $strategy .", ". $blockslanded .", ". $alliance .", ". $cash ."), ";
 				}
 				
-				$fullquery = "INSERT INTO results (round, contestantid, wincount, starcount, placement, strategy, blockslanded, alliance) VALUES ". $values;
+				$fullquery = "INSERT INTO results (round, contestantid, wincount, starcount, placement, strategy, blockslanded, alliance, cash) VALUES ". $values;
 				
 				$lenfullquery = strlen($fullquery);
 				
 				$fullquery = substr($fullquery,0,$lenfullquery-2);
 				
-				mysqli_query($mysqli, $fullquery);
+				mysqli_query($mysqli, $fullquery) or die(mysqli_error());
 			
 			}
 			

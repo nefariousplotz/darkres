@@ -5,11 +5,6 @@
 		include "block_getlist.php";
 		include "unblock.php";
 	
-		// Figure out who's blockable and unblock everybody
-		
-		include "block_getlist.php";
-		include "unblock.php";
-	
 		// Create a string containing every implicated challenge ID so we can put it
 		// into SQL in a bit
 		$queryinclude = "";
@@ -22,6 +17,13 @@
 		
 		// We're cracking down, so we need to know how many stars the winner has.
 		$winnerstars = $contestantarray[$winnerid]["starcount"];
+		
+		// Sort the blockable array so that the person with the fewest stars comes first.
+		// This will break ties in favour of blocking the person with the fewest stars.
+		
+		$columns = array_column($blockable,'blockablestars');
+		array_multisort($columns,SORT_ASC,$blockable);
+		
 		
 		// Cycle through each candidate, check whether they're eligible for blocking
 		// (we're cracking down!), and if they are, pull their scores from the DB, then
@@ -56,12 +58,12 @@
 			$blockedcontestant = $candidatearray[0]["candidateid"];
 			
 		} else {
-			// We didn't get at least one candidate, so we're going to pick at random instead.
+			// We didn't get at least one candidate, so we're going to crack the code instead.
 			$strategyverb = "can't crack down, so cracks the code instead";
 			include "block_crackthecode.php";
 		}
 				
-		// Block 'em. */
+		// Block 'em.
 				
 		if ($blockedcontestant != -1) {
 			$contestantarray[$blockedcontestant]["blocked"] = 1; 

@@ -45,7 +45,10 @@
 		if ($shownarrative == 2) {
 			echo "</ul>";
 		}
-	
+		
+		// Shuffle the performance array to break ties
+		shuffle($challengeperformances);
+		
 		$columns = array_column($challengeperformances,'contestantscore');
 		array_multisort($columns, SORT_DESC, $challengeperformances);
 		

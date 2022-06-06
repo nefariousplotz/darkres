@@ -1,41 +1,40 @@
 	<?php
 	
-	// Figure out who's blockable and unblock everybody
+		// Figure out who's blockable and unblock everybody
 		
-	include "block_getlist.php";
-	include "unblock.php";
+		include "block_getlist.php";
+		include "unblock.php";
+	
+		// Randomly sort the array (to break ties later)
+		shuffle($blockable);
 		
-	// Next, rank them in order of stars to date.
-	
-	$columns = array_column($blockable,'blockablestars');
-	array_multisort($columns,SORT_DESC,$blockable);
-	
-	// Next, determine where the blocker is currently situated.
-	
-	$winnerstars = $contestantarray[$winnerid]["starcount"];
-	
-	unset($punchdownarray);
-	
-	$punchdownarray = $blockable;
-	
-	foreach($punchdownarray as $candidateid => $candidatevalue) {
-			if ($winnerstars < $candidatevalue["blockablestars"]) {
-					unset ($punchdownarray[$candidateid]);
+		// Create a new candidate array so that we don't bork the blockable array
+		$winnerstars = $contestantarray[$winners[0]]["starcount"];
+		unset($candidatearray);
+		foreach ($blockable as $candidate) {
+			if ($candidate["blockablestars"] <= $winnerstars) {
+				$candidatearray[] = $candidate;
 			}
-	}
-
-	if (count($punchdownarray) == 0) {
-		// If nobody has fewer stars than the winner, pick someone at random.
-		include "block_random.php";
-		$strategyverb = "can't punch down, so picks at random instead";
-	} else {
-		// If somebody does have fewer stars, select at random from among the survivors.
-		array_values($punchdownarray);
-		$maxpull = count($punchdownarray)-1;
-		$blockedpull = rand(0,$maxpull);
-		$blockedcontestant = $blockable[$blockedpull]["blockableid"];
-	}
-	
-	$contestantarray[$blockedcontestant]["blocked"] = 1;
-	
+		}
+		
+		if (isset($candidatearray)) {		
+			// We got at least one candidate, so block the one with the most stars
+			$columns = array_column($candidatearray,'blockablestars');
+			array_multisort($columns,SORT_DESC,$candidatearray);
+			
+			$blockedcontestant = $candidatearray[0]['blockableid'];
+		} else {
+			// We didn't get any candidates, so sort the main Blockable array
+			//     and then block the one with the fewest stars
+			
+			$columns = array_column($blockable,'blockablestars');
+			array_multisort($columns,SORT_ASC,$blockable);
+			
+			$blockedcontestant = $blockable[0]['blockableid'];
+			$strategyverb = "can't punch down, so picks the candidate with the fewest stars";
+		}
+				
+		
+		$contestantarray[$blockedcontestant]["blocked"] = 1; 
+			
 	?>
